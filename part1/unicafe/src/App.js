@@ -1,17 +1,22 @@
 import React, { useState } from 'react';
 import './App.css';
 
-function Statistics(props) {
-	const [ good, neutral, bad ] = props.data;
+function Statistics({ good, neutral, bad }) {
 	return (
 		<div className="">
 			<h1>statistics</h1>
-			<p>{`good ${good}`}</p>
-			<p>{`neutral ${neutral}`}</p>
-			<p>{`bad ${bad}`}</p>
-			<p>{`all ${good + neutral + bad}`}</p>
-			<p>{`average ${good + neutral + bad ? (good * 1 + neutral * 0 + bad * -1) / (good + neutral + bad) : 0}`}</p>
-			<p>{`positive ${good ? good / (good + neutral + bad) * 100 : 0} %`}</p>
+			{good + neutral + bad ? (
+				<div>
+					<p>{`good ${good}`}</p>
+					<p>{`neutral ${neutral}`}</p>
+					<p>{`bad ${bad}`}</p>
+					<p>{`all ${good + neutral + bad}`}</p>
+					<p>{`average ${good + neutral + bad ? (good * 1 + neutral * 0 + bad * -1) / (good + neutral + bad) : 0}`}</p>
+					<p>{`positive ${good ? good / (good + neutral + bad) * 100 : 0} %`}</p>
+				</div>
+			) : (
+				<p>No feedback given</p>
+			)}
 		</div>
 	);
 }
@@ -27,7 +32,7 @@ function App() {
 			<button onClick={() => setGood(good + 1)}>good</button>
 			<button onClick={() => setNeutral(neutral + 1)}>neutral</button>
 			<button onClick={() => setBad(bad + 1)}>bad</button>
-			<Statistics data={[ good, neutral, bad ]} />
+			<Statistics good={good} neutral={neutral} bad={bad} />
 		</div>
 	);
 }
