@@ -13,12 +13,20 @@ const App = (props) => {
 		newVotes[selected] += 1;
 		setVotes(newVotes);
 	};
+	const mostVoteAnecdote = () => {
+		const mostVote = Math.max(...votes);
+		const index = votes.indexOf(mostVote);
+		return props.anecdotes[index];
+	};
 	return (
 		<div>
+			<h1>Anecdote of the day</h1>
 			<div>{props.anecdotes[selected]}</div>
 			<div>{`has ${votes[selected]} votes`}</div>
 			<button onClick={handleVote}>vote</button>
 			<button onClick={handleAnecdote}>next anecdote</button>
+			<h1>Anecdote with the most votes</h1>
+			<div>{mostVoteAnecdote()}</div>
 		</div>
 	);
 };
