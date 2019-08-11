@@ -6,7 +6,12 @@ const Button = ({ handleClick, name }) => {
 };
 
 const Statistic = ({ name, value }) => {
-	return <p>{`${name} ${value}`}</p>;
+	return (
+		<tr>
+			<td>{name}</td>
+			<td>{value}</td>
+		</tr>
+	);
 };
 
 const Statistics = ({ good, neutral, bad }) => {
@@ -14,17 +19,19 @@ const Statistics = ({ good, neutral, bad }) => {
 		<div className="">
 			<h1>statistics</h1>
 			{good + neutral + bad ? (
-				<div>
-					<Statistic name={'good'} value={good} />
-					<Statistic name={'neutral'} value={neutral} />
-					<Statistic name={'bad'} value={bad} />
-					<Statistic name={'all'} value={good + neutral + bad} />
-					<Statistic
-						name={'average'}
-						value={good + neutral + bad ? (good * 1 + neutral * 0 + bad * -1) / (good + neutral + bad) : 0}
-					/>
-					<Statistic name={'positive'} value={good ? good / (good + neutral + bad) * 100 : 0} />
-				</div>
+				<table>
+					<tbody>
+						<Statistic name={'good'} value={good} />
+						<Statistic name={'neutral'} value={neutral} />
+						<Statistic name={'bad'} value={bad} />
+						<Statistic name={'all'} value={good + neutral + bad} />
+						<Statistic
+							name={'average'}
+							value={good + neutral + bad ? (good * 1 + neutral * 0 + bad * -1) / (good + neutral + bad) : 0}
+						/>
+						<Statistic name={'positive'} value={good ? `${good / (good + neutral + bad) * 100} %` : 0} />
+					</tbody>
+				</table>
 			) : (
 				<p>No feedback given</p>
 			)}
