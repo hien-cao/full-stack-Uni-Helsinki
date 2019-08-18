@@ -1,13 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const countriesList = (countries) => {
-	return countries.map((country) => <div key={country.name}>{country.name}</div>);
+const Country = ({ country }) => {
+	const [ displayDetail, setDisplayDetail ] = useState(false);
+	return (
+		<div key={country.name}>
+			{country.name}
+			<button onClick={() => setDisplayDetail(!displayDetail)}>show</button>
+			<CountryDetail displayDetail={displayDetail} country={country} />
+		</div>
+	);
 };
 
-const country = (countries) => {
-	return countries.map((country) => {
-		return (
+const CountryDetail = ({ displayDetail, country }) => {
+	return (
+		displayDetail && (
 			<div>
 				<h1>{country.name}</h1>
 				<div className="">capital {country.capital}</div>
@@ -16,8 +23,8 @@ const country = (countries) => {
 				<ul>{country.languages.map((lang) => <li>{lang.name}</li>)}</ul>
 				<img style={{ width: '200px' }} src={country.flag} alt={country.name} />
 			</div>
-		);
-	});
+		)
+	);
 };
 
 const App = (props) => {
@@ -37,10 +44,8 @@ const App = (props) => {
 			{filter &&
 				(filteredCountries.length > 10 ? (
 					<div>Too many matches, specify another filter</div>
-				) : filteredCountries.length > 1 ? (
-					countriesList(filteredCountries)
 				) : (
-					country(filteredCountries)
+					filteredCountries.map((country) => <Country country={country} />)
 				))}
 		</div>
 	);
